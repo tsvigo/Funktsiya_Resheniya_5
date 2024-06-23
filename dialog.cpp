@@ -229,7 +229,8 @@ void Dialog::on_pushButton_clicked()
         // bez_1
         QProcess::startDetached(
 
-            "/home/viktor/my_projects_qt_2_build/build-bez_1_GUI_3_uu-Desktop_Qt_5_12_12_GCC_64bit-Release/bez_1_GUI_3_uu"
+          //  "/home/viktor/my_projects_qt_2_build/build-bez_1_GUI_3_uu-Desktop_Qt_5_12_12_GCC_64bit-Release/bez_1_GUI_3_uu"
+       "/home/viktor/my_projects_qt_2_build/build-bez_1-Desktop-Release/bez_1"
             , qApp->arguments());
         //          qApp->quit();
     }
