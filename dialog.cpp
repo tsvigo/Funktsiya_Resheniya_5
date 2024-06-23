@@ -128,6 +128,27 @@ Dialog::Dialog(QWidget *parent)
     }
 //###########################################################################
     //###########################################################################
+    /////////////   показываем что определила программа
+    if
+        //  ( variable_error <=0)
+        (list_of_neurons.at(200) < 0)
+
+    {
+        ui->label->setText("Программа считает что это 1.");
+        std::cout << "Программа считает что это 1." << std::endl;
+        Odin_Programmi = true;
+        // std::cout << "Программа остановлена. Ошибки в форматах синапсов или нейронов."<< std::endl;
+    }
+    //         else
+    if (list_of_neurons.at(200) >= 0) {
+        ui->label->setText("Программа считает что это не 1.");
+        std::cout << "Программа считает что это не 1." << std::endl;
+        Odin_Programmi = false;
+    }
+    //########################################################################################################
+    std::cout << "149 строка (до решения): list_of_neurons->at(200) = "
+              << list_of_neurons.at(200) << std::endl;
+    //###########################################################################
     // блок вычисления-решения 200 нейрона
     //###########################################################################//###########################################################################
     //###########################################################################//###########################################################################
@@ -217,8 +238,8 @@ void Dialog::on_pushButton_clicked()
         ui->label_2->setText ("Odin_Programmi==false; Odin_Uchitelia=true");
         // cycle_of_distinguishing_a_one_with_vectors_GUI
         QProcess::startDetached(
-
-            "/home/viktor/my_projects_qt_2_build/build-cycle_of_distinguishing_a_one_with_vectors_GUI_2_uu-Desktop_Qt_5_12_12_GCC_64bit-Release/cycle_of_distinguishing_a_one_with_vectors_GUI_2_uu"
+   "/home/viktor/my_projects_qt_2_build/build-1-Desktop-Release/1"
+        //   "/home/viktor/my_projects_qt_2_build/build-cycle_of_distinguishing_a_one_with_vectors_GUI_2_uu-Desktop_Qt_5_12_12_GCC_64bit-Release/cycle_of_distinguishing_a_one_with_vectors_GUI_2_uu"
             , qApp->arguments());
         //   qApp->quit();
     }
