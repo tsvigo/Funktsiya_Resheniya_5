@@ -115,7 +115,7 @@ Dialog::Dialog(QWidget *parent)
     std::string stdFileName_neyroni = fileName_neyroni.toStdString();
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     try {
-        // Чтение 205 long long чисел из бинарного файла
+        // Чтение 205 long long чисел из бинарного файла в
         //  std::vector<long long>
         list_of_neurons = read205LongLongFromBinaryFile(
             //  "/home/viktor/my_projects_qt_2/podacha_signala_long_long/combined_numbers.bin"
