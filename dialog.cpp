@@ -20,6 +20,7 @@ bool Odin_Programmi;
 int var;
 int neuron_index = 0, synapse_index = 0;
 std::vector<long long> list_of_neurons;
+std::vector<unsigned long long> list_of_synapses;
 //##################################################################
 //######################## 5 ##################################################
 // Функция для чтения 205 long long чисел из бинарного файла
@@ -64,6 +65,24 @@ std::vector<unsigned long long> readNumbersFromFile2(const QString &fileName, si
     return list_of_synapses;
 }
 //###########################################################################
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+std::vector<unsigned long long> read10105UnsignedLongLongFromBinaryFile(const std::string &filename)
+{
+    std::ifstream file(filename, std::ios::binary);
+    if (!file) {
+        throw std::runtime_error("Ошибка открытия бинарного файла.");
+    }
+
+    std::vector<unsigned long long> list_of_synapses(10106);
+    file.read(reinterpret_cast<char *>(list_of_synapses.data()), 10106 * sizeof(unsigned long long));
+
+    if (file.gcount() != 10106 * sizeof(unsigned long long)) {
+        throw std::runtime_error("Недостаточно данных в бинарном файле.");
+    }
+
+    return list_of_synapses;
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // конец объявлений функций
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Dialog::Dialog(QWidget *parent)
@@ -81,22 +100,53 @@ Dialog::Dialog(QWidget *parent)
         "/home/viktor/my_projects_qt_2/sgenerirovaty_sinapsi/random_sinapsi.bin"
         ; // Имя бинарного файла*/
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     const size_t numberCount = 10105;
-    // Чтение чисел из бинарного файла
-    std::vector<unsigned long long> list_of_synapses = readNumbersFromFile2(fileName, numberCount);
+    // Чтение чисел из бинарного файла - синапсы
+    // std::vector<unsigned long long> list_of_synapses = readNumbersFromFile2(fileName, numberCount);
 
+    // // Проверка, что прочитано правильное количество чисел
+    // if (list_of_synapses.size() != numberCount) {
+    //     std::cerr << "File does not contain the expected number of numbers." << std::endl;
+    // }
+    // std::cout << "list_of_synapses.size() =" << list_of_synapses.size() << std::endl;
+    // std::cout << "конец чтения синапсов в вектор" << std::endl;
+    // std::cout << "//"
+    //              "#################################################################################"
+    //              "#######################"
+    //           << std::endl;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Преобразование QString в std::string
+    std::string stdFileName_sinapsi = fileName.toStdString();
+    list_of_synapses= read10105UnsignedLongLongFromBinaryFile(stdFileName_sinapsi);
     // Проверка, что прочитано правильное количество чисел
     if (list_of_synapses.size() != numberCount) {
         std::cerr << "File does not contain the expected number of numbers." << std::endl;
     }
     std::cout << "list_of_synapses.size() =" << list_of_synapses.size() << std::endl;
     std::cout << "конец чтения синапсов в вектор" << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Проверка содержимого вектора
+    for (size_t i = 0; i < list_of_synapses.size(); ++i) {
+        std::cout << "Synaps " << i << ": " << list_of_synapses[i] << std::endl;
+    }
+
+    // Проверка значения по индексу 10105
+    if (list_of_synapses.size() // <
+        >
+        10105) {
+        std::cout << "list_of_synapses.at(10105) = " << list_of_synapses.at(10105) << std::endl;
+    } else {
+        std::cerr << "Вектор недостаточного размера." << std::endl;
+    }
+    //###########################################################################
     std::cout << "//"
                  "#################################################################################"
                  "#######################"
               << std::endl;
     //###########################################################################
+    //////////////////// считали синапсы в вектор /////////////////////////////////////////////////////////////////////////////////
+//###########################################################################
     // читаем нейроны в вектор
 
     // Вызов диалога выбора файла
@@ -121,33 +171,27 @@ Dialog::Dialog(QWidget *parent)
             //  "/home/viktor/my_projects_qt_2/podacha_signala_long_long/combined_numbers.bin"
             stdFileName_neyroni
             );
-        std::cout << "list_of_neurons.size()=" << list_of_neurons.size() << std::endl;
-
+     //   std::cout << "list_of_neurons.size()=" << list_of_neurons.size() << std::endl;
+   std::cout << "list_of_neurons.size()=" << list_of_neurons.size() << std::endl;
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Проверка содержимого вектора
+    for (size_t i = 0; i < list_of_neurons.size(); ++i) {
+        std::cout << "Neuron " << i << ": " << list_of_neurons[i] << std::endl;
+    }
+
+    // Проверка значения по индексу 200
+    if (list_of_neurons.size() > 200) {
+        std::cout << "list_of_neurons.at(200) = " << list_of_neurons.at(200) << std::endl;
+    } else {
+        std::cerr << "Вектор недостаточного размера." << std::endl;
+    }
+//###########################################################################
+////////////////////////// считали нейроны в вектор ////////////////////////////////////////////////////////////////
 //###########################################################################
     //###########################################################################
-    /////////////   показываем что определила программа
-    if
-        //  ( variable_error <=0)
-        (list_of_neurons.at(200) < 0)
-
-    {
-        ui->label->setText("Программа считает что это 1.");
-        std::cout << "Программа считает что это 1." << std::endl;
-        Odin_Programmi = true;
-        // std::cout << "Программа остановлена. Ошибки в форматах синапсов или нейронов."<< std::endl;
-    }
-    //         else
-    if (list_of_neurons.at(200) >= 0) {
-        ui->label->setText("Программа считает что это не 1.");
-        std::cout << "Программа считает что это не 1." << std::endl;
-        Odin_Programmi = false;
-    }
-    //########################################################################################################
-    std::cout << "149 строка (до решения): list_of_neurons->at(200) = "
-              << list_of_neurons.at(200) << std::endl;
     //###########################################################################
     // блок вычисления-решения 200 нейрона
     //###########################################################################//###########################################################################
@@ -238,7 +282,7 @@ void Dialog::on_pushButton_clicked()
         ui->label_2->setText ("Odin_Programmi==false; Odin_Uchitelia=true");
         // cycle_of_distinguishing_a_one_with_vectors_GUI
         QProcess::startDetached(
-   "/home/viktor/my_projects_qt_2_build/build-1-Desktop-Release/1"
+   "/home/viktor/my_projects_qt_2_build/build-1_v_2-Desktop-Release/1_v_2"
         //   "/home/viktor/my_projects_qt_2_build/build-cycle_of_distinguishing_a_one_with_vectors_GUI_2_uu-Desktop_Qt_5_12_12_GCC_64bit-Release/cycle_of_distinguishing_a_one_with_vectors_GUI_2_uu"
             , qApp->arguments());
         //   qApp->quit();
