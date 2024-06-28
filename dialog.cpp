@@ -247,6 +247,7 @@ Dialog::Dialog(QWidget *parent)
                           //  /   // деление
                           -                                     // вычитаем
                           list_of_synapses.at(synapse_index))); // + на -
+  // тут видимо умножать на функцию активации
             } catch (const std::out_of_range &e) {
                 //  std::cerr << "Caught an exception: " << e.what() << '\n';
             }
